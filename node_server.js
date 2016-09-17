@@ -10,8 +10,8 @@ var url = require("url");
 var http = require("http");
 
 var app = express();
-http.createServer(app).listen(8080);
-// http.createServer(app).listen(process.env.PORT);
+// http.createServer(app).listen(8080);
+http.createServer(app).listen(process.env.PORT);
 // mongoose.connect(process.env.MONGOLAB_URI || "mongo://localhost:27017/test")
 
 //app.listen(8080); // rudimentary implementation
