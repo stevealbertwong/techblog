@@ -4,16 +4,21 @@
 
 <head>
 	<title>Steve Wong's Tech Blog</title>
-	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-	  
 
-	  
+	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+	<!-- CDN version
+	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+	  -->
+	  <script type="text/javascript" src="angular.min.js"></script>
+	  	  
 	  <script type="text/javascript">	
 			var app = angular.module('techBlog', ['ng']);
 			// create variable $scope, $http, $window -> then pass into function
 			app.controller('techBlogController', function($scope, $http){
 			
-				$scope.post = 'waiting to be updated';
+				$scope.blogposts = ['blog post 1', 'blog post 2', 'blog post 3', 'blog post 4'];
 
 				$scope.sendPost = function(){
 					$http.post('/post/add', {content: $scope.post});
@@ -27,8 +32,41 @@
 				});
 	  </script>
 
+	  <style>
+	    .blogpost{
+	    	margin-left: 50px;
+	  		margin-right: 50px;
+	  		margin-top:10px;
+	  		margin-bottom:20px;
+	  		border:1px solid black;
+	  		min-height: 400px;
+	    }
+	  	.feed{
+	  		margin-left: 50px;
+	  		margin-right: 50px;
+	  		margin-top:10px;
+	  		margin-bottom:20px;
+	  		border:1px solid black;
+	  		min-height: 1000px;
+	  	}
+
+	  	.headerStyle{
+	  		padding: 20px;
+	  	}
+	  </style>
+
+
 	 
 </head>
+
+
+
+
+
+
+
+
+
 
 
 
@@ -43,6 +81,21 @@
 		<button ng-click="setContent('machinelearning.html')">Machine Learning Page</button>
 	</div>
 
+
+	<div class="dropdown">
+	  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+	    Dropdown <span class="caret"></span>
+	  </button>
+
+	  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+	    <li><a href="#">Action</a></li>
+	    <li><a href="#">Another action</a></li>
+	    <li><a href="#">Something else here</a></li>
+	    <li role="separator" class="divider"></li>
+	    <li><a href="#">Separated link</a></li>
+	  </ul>
+	</div>
+
 		<!-- scope model -> called ng-model -->
 		<input type="text" ng-model="post"> 
 		<div>this is {{post}}</div>
@@ -54,6 +107,36 @@
 
 	<div ng-click="counter=counter+1">you have clicked {{counter}} times</div>
 
+	<div class="row feed">
+		<div class="col-md-4">
+			<br>
+			login:
+			<br>
+			<br>		
+			<input type="text" size="30" placeholder="username">
+			<br>			
+			<input type="text" size="30" placeholder="password">
+			<br>
+			<br>
+
+		</div>
+		<div class="col-md-8">
+		<h1 class="headerStyle">
+			<span class="glyphicon glyphicon-leaf" aria-hidden="true"></span>
+		Blog Post Entry 
+		</h1>
+		<p></p>
+
+		<h4 class="blogpost" ng-repeat="blogpost in blogposts"> {{blogpost}}</h4>
+
+
+
+
+
+		</div>
+		
+
+	</div>
 
 
 
