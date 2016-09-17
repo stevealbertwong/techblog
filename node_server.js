@@ -21,8 +21,8 @@ http.createServer(app).listen(process.env.PORT);
 // });
 
 
-// app.use('/', express.static('./static'))
-app.use('/', express.static('./static_test'))
+app.use('/', express.static('./static'))
+//app.use('/', express.static('./static_test'))
 
 
 // Query String e.g. /find?author=steven&title=ilovesunshine
