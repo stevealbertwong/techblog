@@ -5,27 +5,38 @@
 <head>
 	<title>Steve Wong's Tech Blog</title>
 	  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
-	  <script type="text/javascript" src="/static/app.js"></script> 
+	  
 
-	  <!--
-	  <script type="text/javascript">
-	  	var app = angular.module('techBlog', ['ng']);
-	  	app.controller('techBlogController', function($scope) {
-	  		$scope.counter = 0;
+	  
+	  <script type="text/javascript">	
+			var app = angular.module('techBlog', ['ng']);
+			// create variable $scope, $http, $window -> then pass into function
+			app.controller('techBlogController', function($scope, $http){
+			
+				$scope.post = 'waiting to be updated';
 
-	  	})
+				$scope.sendPost = function(){
+					$http.post('/post/add', {content: $scope.post});
+				}
+
+				$scope.setContent = function(filename){
+					$scope.content = '/static/' + filename;
+					$location.path($scope.content);
+				}
+
+				});
 	  </script>
 
-	  -->
-
-
-
+	 
 </head>
+
+
+
+
 
 
 <body>
 	<div ng-controller="techBlogController">
-
 
 	<div>
 		<!-- $scope.content = '/static/' + filename; -->
