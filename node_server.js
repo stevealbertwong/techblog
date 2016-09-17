@@ -14,15 +14,15 @@ http.createServer(app).listen(8080);
 // http.createServer(app).listen(process.env.PORT);
 // mongoose.connect(process.env.MONGOLAB_URI || "mongo://localhost:27017/test")
 
-//app.listen(8080); // rudimentary implementation
+app.use('/', express.static('./static'))
+// app.use('/', express.static('./static_test'))
 
-// app.get("/", function(req,res){
-// 	res.send("Hello world")
-// });
+app.get("/hello", function(req,res){
+	res.send("Hello world")
+});
 
 
-// app.use('/', express.static('./static'))
-app.use('/', express.static('./static_test'))
+
 
 
 // Query String e.g. /find?author=steven&title=ilovesunshine
