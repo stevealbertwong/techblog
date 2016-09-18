@@ -5,7 +5,8 @@
 <head>
 	<title>Steve Wong's Tech Blog</title>
 
-	<link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="./bootstrap/css/bootstrap.css">
+
 	<link rel="stylesheet" type="text/css" href="style.css">
 
 	<!-- CDN version
@@ -14,20 +15,52 @@
 	  <script type="text/javascript" src="angular.min.js"></script>
 	  	  
 	  <script type="text/javascript">	
-			var app = angular.module('techBlog', ['ng']);
+			var app = angular.module('techBlog', []);
 			// create variable $scope, $http, $window -> then pass into function
 			app.controller('techBlogController', function($scope, $http){
 			
 				$scope.blogposts = ['blog post 1', 'blog post 2', 'blog post 3', 'blog post 4'];
+				
+				$scope.responsebefore = ["before"];
+				$scope.responsebefore2 = ["before"];
+				$scope.writeblogpost = "";
+				$scope.httpposts = "";
 
-				$scope.sendPost = function(){
-					$http.post('/post/add', {content: $scope.post});
+				$scope.testHttp = function(){
+					$http.get('/hello').success(function(response){ 
+						console.log(response);
+						$scope.responsebefore =response;
+						alert('success!');
+
+
+					});
+
+					$http.get('/helloarray').success(function(response){ 
+						console.log(response);
+						$scope.responsebefore2 =response;
+
+					});
+				}
+
+				$scope.submitBlogPost = function(){
+					$http.post('/blogpost/add', {content: $scope.writeblogpost}).success(function(response){
+						console.log(response);						
+					});
+				}
+
+				$scope.getBlogPost = function(){
+					$http.get('/blogpost').success(function(response){
+						alert('success!');
+						$scope.httpposts = response;
+					});
 				}
 
 				$scope.setContent = function(filename){
 					$scope.content = '/static/' + filename;
 					$location.path($scope.content);
 				}
+
+
 
 				});
 	  </script>
@@ -73,6 +106,13 @@
 
 
 
+
+
+
+
+
+
+
 <body>
 	<div ng-controller="techBlogController">
 
@@ -96,16 +136,58 @@
 	  </ul>
 	</div>
 
-		<!-- scope model -> called ng-model -->
+
+
+		
 		<input type="text" ng-model="post"> 
 		<div>this is {{post}}</div>
 
+		<!-- TOOD: SWITCH BETWEEN PAGES
 		<span class="button" ng-click="sendPost()">Send Post</span>
-
-	
 	<div ng-include="content"></div>
+	-->
 
 	<div ng-click="counter=counter+1">you have clicked {{counter}} times</div>
+	<button ng-click="testHttp()">send http click</button>
+
+	<br>
+	<div>This is {{responsebefore}} from backend /hello</div>
+	<br>
+	<div>This is {{responsebefore2}} from backend /helloarray</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- START OF BLOG-->	
 
 	<div class="row feed">
 		<div class="col-md-4">
@@ -127,7 +209,20 @@
 		</h1>
 		<p></p>
 
-		<h4 class="blogpost" ng-repeat="blogpost in blogposts"> {{blogpost}}</h4>
+
+
+		<div>
+			<input type="text" class="form-control" placeholder="enter your post here" ng-model="writeblogpost">
+			<button class="btn" ng-click="submitBlogPost()">submit</button>
+		</div>
+
+		<div>
+			<button class="btn" ng-click="getBlogPost()">get</button>
+		</div>
+
+		
+
+		<h4 class="blogpost" ng-repeat="blogpost in blogposts"> {{blogpost}} {{httpposts}}</h4>
 
 
 

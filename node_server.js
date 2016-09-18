@@ -6,21 +6,51 @@ Excerpt From: Brad Dayley. “Node.js, MongoDB, and AngularJS Web Development (D
 */
 
 var express = require("express");
+var bodyParser = require("body-parser");
 var url = require("url");
 var http = require("http");
+// var mongoose = require("mongoose");
+
+
+// Schema = mongoose.Schema;
 
 var app = express();
-// http.createServer(app).listen(8080);
-http.createServer(app).listen(process.env.PORT);
+http.createServer(app).listen(8080, function(){
+	console.log("Listing on port 8080");
+});
+
+// http.createServer(app).listen(process.env.PORT, function(){
+// 	console.log("Listening on port process.env.PORT");
+// });
+
 // mongoose.connect(process.env.MONGOLAB_URI || "mongo://localhost:27017/test")
 
+
+app.use(bodyParser.json());
 app.use('/', express.static('./static'))
 // app.use('/', express.static('./static_test'))
 
+var savedPosts = [];
+
 app.get("/hello", function(req,res){
-	res.send("Hello world")
+	res.send("Hello world");
 });
 
+app.get("/helloarray", function(req,res,next){
+	var helloarr = ["hello world 1", "hello world 2"];
+	var helloobject = {hello :"world"};
+	res.send(helloobject);
+});
+
+app.post('/blogpost/add', function(req, res, next){
+	savedPosts.push(req.body.content);
+	console.log(savedPosts);
+	res.send();
+});
+
+app.get('/blogpost', function(req, res, next){	
+	res.send(savedPosts);
+});
 
 
 
